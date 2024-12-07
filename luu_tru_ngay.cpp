@@ -10,10 +10,24 @@ public:
     Date(unsigned d, unsigned m, unsigned y) : day(d), month(m), year(y) {}
     bool validDate(unsigned day, unsigned month, unsigned year);
     bool isLeapYear(unsigned year);
-    unsigned daysInMonth(unsigned month, unsigned year);
+    unsigned daysInMonth();
+    unsigned nextDay();
     void printDate();
 };
-unsigned Date::daysInMonth(unsigned month, unsigned year)
+unsigned Date::nextDay()
+{
+    day++;
+    if (day > daysInMonth())
+    {
+        day = 1;
+        if (++month > 12)
+        {
+            month = 1;
+            year++;
+        }
+    }
+}
+unsigned Date::daysInMonth()
 {
     switch (month)
     {
@@ -51,6 +65,10 @@ void Date::printDate()
 int main()
 {
     Date x(30, 5, 2006);
+    x.printDate();
+
+    x.nextDay();
+    x.nextDay();
     x.printDate();
     return 0;
 }
